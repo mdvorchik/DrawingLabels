@@ -10,6 +10,7 @@ public class Node {
     public int height;
     public List<PositionType> availablePos;
     public PositionType currentPos;
+    public Node rev;
 
     public Node(int id, int x, int y, int width, int height, List<PositionType> availablePos, PositionType currentPos) {
         this.id = id;
@@ -19,5 +20,6 @@ public class Node {
         this.height = height;
         this.availablePos = availablePos;
         this.currentPos = currentPos;
+        rev = new Node(id, x, y, width, height, availablePos, availablePos.get(1));
     }
 }
