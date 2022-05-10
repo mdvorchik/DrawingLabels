@@ -9,7 +9,7 @@ public class Main {
         CoordinateParser coordinateParser = new CoordinateParser("coordinates.txt");
         LabelDrawer graphDrawer = new LabelDrawer(coordinateParser.nodes);
 
-        graphDrawer.drawLabelsToFile("graph.png");
+        int result = graphDrawer.drawLabelsToFile("labels.png");
         System.out.println("Done! ");
 
         EventQueue.invokeLater(() -> {
@@ -18,12 +18,19 @@ public class Main {
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ignored) {
             }
 
-            ImageIcon icon = new ImageIcon("labels.png");
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Labels",
-                    "labels", JOptionPane.INFORMATION_MESSAGE,
-                    icon);
+            if (result == 0) {
+                ImageIcon icon = new ImageIcon("labels.png");
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Labels",
+                        "labels", JOptionPane.INFORMATION_MESSAGE,
+                        icon);
+            } else {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "NO SOLUTION",
+                        "labels", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
     }
 }

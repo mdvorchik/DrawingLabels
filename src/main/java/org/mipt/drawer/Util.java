@@ -29,35 +29,6 @@ public class Util {
         } else {
             return true;
         }
-//        return (
-//                (
-//                        (
-//                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
-//                        ) && (
-//                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
-//                        )
-//                ) || (
-//                        (
-//                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
-//                        ) && (
-//                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
-//                        )
-//                )
-//        ) || (
-//                (
-//                        (
-//                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
-//                        ) && (
-//                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
-//                        )
-//                ) || (
-//                        (
-//                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
-//                        ) && (
-//                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
-//                        )
-//                )
-//        );
     }
 
     public static int getLeftX(Node node) {

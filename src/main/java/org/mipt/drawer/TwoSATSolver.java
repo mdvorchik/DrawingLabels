@@ -60,16 +60,14 @@ public class TwoSATSolver {
             }
         }
 
-        for (int i = 0; i < clauseGraph.size(); i += 2) {
-            if (comp[i] == comp[i + 1]) {
-                System.out.println("NO SOLUTION");
+        for (int i = 0; i < clauseGraph.size() / 2; ++i) {
+            if (comp[i] == comp[i + clauseGraph.size() / 2]) {
                 return null;
             }
         }
 
-        for (int i = 0; i < clauseGraph.size(); i += 2) {
-            int v = comp[i] > comp[i + 1] ? i : i + 1;
-            System.out.println(v);
+        for (int i = 0; i < clauseGraph.size() / 2; ++i) {
+            int v = comp[i] > comp[i + clauseGraph.size() / 2] ? i : i + clauseGraph.size() / 2;
             answer.add(v);
         }
 

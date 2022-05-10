@@ -9,11 +9,15 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.mipt.drawer.PositionType.LEFT_BOTTOM;
+import static org.mipt.drawer.PositionType.LEFT_TOP;
 
 public class LabelDrawer {
-    private static int offsetByX = 0;
     private static final List<List<Integer>> clausesGraph = new ArrayList<>();
     private static final List<List<Integer>> revClausesGraph = new ArrayList<>();
     private final List<Node> nodes;
@@ -29,19 +33,24 @@ public class LabelDrawer {
         }
     }
 
-    private static Object insertAndGetDummyVertexToGraph(mxGraph graph, int offsetByY, int offsetByX, int width, int height) {
+    private static Object insertAndGetDummyVertexToGraph(mxGraph graph, String label, double offsetByX, double offsetByY, double width, double height) {
         return graph.insertVertex(graph.getDefaultParent(),
-                null, null, 2 * width * (offsetByX), 3 * height * (offsetByY + 1),
-                width / 10, height / 10, mxConstants.STYLE_IMAGE);
+                null, label, offsetByX, offsetByY,
+                width, height, mxConstants.STYLE_ROUNDED);
     }
 
-    public void drawLabelsToFile(String fileName) {
+    public int drawLabelsToFile(String fileName) {
         mxGraph graph = new mxGraph();
         fillClauses();
         fillClausesGraphs();
 
         TwoSATSolver twoSATSolver = new TwoSATSolver(clausesGraph, revClausesGraph);
         List<Integer> answers = twoSATSolver.solve();
+
+        if (answers == null) {
+            System.out.println("NO SOLUTION");
+            return -1;
+        }
 
         fillGraph(graph, answers);
 
@@ -52,6 +61,7 @@ public class LabelDrawer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
     private void fillClauses() {
@@ -111,7 +121,19 @@ public class LabelDrawer {
     }
 
     private void fillGraph(mxGraph graph, List<Integer> answers) {
-
+        for (int i = 0; i < answers.size(); i++) {
+            boolean isRev = answers.get(i) >= nodes.size();
+            int ind = answers.get(i) % nodes.size();
+            Node node = isRev ? nodes.get(ind).rev : nodes.get(ind);
+            double x = (node.currentPos == LEFT_BOTTOM || node.currentPos == LEFT_TOP) ? Util.getRightX(node) - node.width : Util.getLeftX(node);
+            double y = Util.getBotY(node);
+            if (answers.size() - i <= 4) {
+                insertAndGetDummyVertexToGraph(graph, "border_" + (answers.size() - i), x, y, node.width, node.height);
+            } else {
+                insertAndGetDummyVertexToGraph(graph, node.currentPos.toString() + "_n" + node.id, x, y, node.width, node.height);
+                insertAndGetDummyVertexToGraph(graph, "n" + node.id, node.x, node.y, 15, 15);
+            }
+        }
     }
 
 
