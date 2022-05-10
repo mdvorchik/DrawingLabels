@@ -2,9 +2,10 @@ package org.mipt.drawer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         CoordinateParser coordinateParser = new CoordinateParser("coordinates.txt");
         LabelDrawer graphDrawer = new LabelDrawer(coordinateParser.nodes);
 

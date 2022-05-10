@@ -12,6 +12,15 @@ public class Node {
     public PositionType currentPos;
     public Node rev;
 
+    public Node(int id, int x, int y, int width, int height, List<PositionType> availablePos) {
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.availablePos = availablePos;
+    }
+
     public Node(int id, int x, int y, int width, int height, List<PositionType> availablePos, PositionType currentPos) {
         this.id = id;
         this.x = x;
@@ -20,6 +29,7 @@ public class Node {
         this.height = height;
         this.availablePos = availablePos;
         this.currentPos = currentPos;
-        rev = new Node(id, x, y, width, height, availablePos, availablePos.get(1));
+        rev = new Node(id, x, y, width, height, availablePos);
+        rev.currentPos = availablePos.get(1);
     }
 }

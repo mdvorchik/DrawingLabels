@@ -21,35 +21,43 @@ public class Util {
         int bY = getTopY(node2);
         int aY1 = getBotY(node1);
         int bY1 = getBotY(node2);
-        return (
-                (
-                        (
-                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
-                        ) && (
-                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
-                        )
-                ) || (
-                        (
-                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
-                        ) && (
-                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
-                        )
-                )
-        ) || (
-                (
-                        (
-                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
-                        ) && (
-                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
-                        )
-                ) || (
-                        (
-                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
-                        ) && (
-                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
-                        )
-                )
-        );
+        if (Math.max(aX, aX1) < Math.min(bX, bX1) || Math.max(aY, aY1) < Math.min(bY, bY1)
+                || Math.min(aY, aY1) > Math.max(bY, bY1) || Math.min(aX, aX1) > Math.max(bX, bX1)) {
+            return false;
+        } else if (Math.max(aX, aX1) > Math.min(bX, bX1) && Math.min(aX, aX1) < Math.min(bX, bX1)) {
+            return true;
+        } else {
+            return true;
+        }
+//        return (
+//                (
+//                        (
+//                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
+//                        ) && (
+//                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
+//                        )
+//                ) || (
+//                        (
+//                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
+//                        ) && (
+//                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
+//                        )
+//                )
+//        ) || (
+//                (
+//                        (
+//                                (aX >= bX && aX <= bX1) || (aX1 >= bX && aX1 <= bX1)
+//                        ) && (
+//                                (bY >= aY && bY <= aY1) || (bY1 >= aY && bY1 <= aY1)
+//                        )
+//                ) || (
+//                        (
+//                                (bX >= aX && bX <= aX1) || (bX1 >= aX && bX1 <= aX1)
+//                        ) && (
+//                                (aY >= bY && aY <= bY1) || (aY1 >= bY && aY1 <= bY1)
+//                        )
+//                )
+//        );
     }
 
     public static int getLeftX(Node node) {
